@@ -1,0 +1,86 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name_plural }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="page">
+
+    <h1>{{ meta.verbose_name_plural }}</h1>
+
+    {% if user_role == 'MANAGER' %}
+    {% reverse_url middle=meta.object_name end='add' as reverse %}
+    <div class="voc-add">
+        <a href="{% url reverse %}">
+            Добавить
+        </a>
+    </div>
+    {% endif %}
+
+    <table class="voc-list-{{ meta.object_name|camel_to_snake }} voc-list list">
+        <thead class="voc-header">
+
+        <tr>
+            <td class="voc-header-name">
+                Наименование
+            </td>
+            <td class="voc-header-descr">
+                Описание
+            </td>
+            {% if user_role == 'MANAGER' %}
+            <td class="voc-header-act">
+                Действие
+            </td>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody class="voc-body">
+
+        {% for item in items %}
+        {% reverse_url middle=meta.object_name end='update' as reverse %}
+
+        <tr>
+            <td class="voc-body-name">
+                <a href="{% url reverse item.pk %}">
+                    {{ item.name }}
+                </a>
+            </td>
+            <td class="voc-body-descr">
+                <a href="">
+                    {{ item.descr|linebreaksbr }}
+                </a>
+            </td>
+            {% if user_role == 'MANAGER' %}
+            <td class="voc-body-act">
+                {% reverse_url middle=meta.object_name end='delete' as reverse %}
+                <a href="{% url reverse item.pk %}">
+                    Удалить
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+
+        {% empty %}
+        <tr>
+            {% if user_role == 'MANAGER' %}
+            <td class="body-empty" colspan="3">
+                Список пуст
+            </td>
+            {% else %}
+            <td class="body-empty" colspan="2">
+                Список пуст
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'silant/paginator.html' %}
+</div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,106 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+Рекламация на машину {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }} от {{ item.failure_date }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="claim-page page">
+    <h2>Рекламация на машину {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }} от {{ item.failure_date }}</h2>
+
+    <div class="claim-item item">
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Модель техники:
+            </div>
+            <div class="claim-row-value">
+                {{ item.vehicle.tech_type }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Зав. № машины:
+            </div>
+            <div class="claim-row-value">
+                {{ item.vehicle.vehicle_number }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Дата отказа:
+            </div>
+            <div class="claim-row-value">
+                {{ item.failure_date }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Наработка, м/час:
+            </div>
+            <div class="claim-row-value">
+                {{ item.hours }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Узел отказа:
+            </div>
+            <div class="claim-row-value">
+                {{ item.failure_part }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Описание отказа:
+            </div>
+            <div class="claim-row-value">
+                {{ item.failure_type|linebreaksbr }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Способ восстановления:
+            </div>
+            <div class="claim-row-value">
+                {{ item.repair_method }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Использованные запчасти:
+            </div>
+            <div class="claim-row-value">
+                {{ item.spare|linebreaksbr }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Дата восстановления:
+            </div>
+            <div class="claim-row-value">
+                {{ item.repaired_date }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Время простоя техники:
+            </div>
+            <div class="claim-row-value">
+                {{ item.downtime.days }} {{ item.downtime.days|days_string }}
+            </div>
+        </div>
+        <div class="claim-row">
+            <div class="claim-row-name">
+                Сервисная компания:
+            </div>
+            <div class="claim-row-value">
+                {{ item.service_firm }}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

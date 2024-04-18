@@ -1,0 +1,28 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <h2>Машина {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }}: {{ item.service_type }}</h2>
+
+    <div class="delete-{{ meta.object_name|camel_to_snake }} delete">
+        <form action="" method="post">
+            <div class="delete-question">
+                {% csrf_token %}
+                <strong>{{ item.service_type }}</strong> для машины <strong>{{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }}</strong> будет удалено?
+            </div>
+            <div class="delete-button">
+                <button type="submit">Подтвердить</button>
+                {% reverse_url middle=meta.object_name end='list' as reverse %}
+                <a class="edit-to-list" href="{% url reverse %}">Отменить</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+

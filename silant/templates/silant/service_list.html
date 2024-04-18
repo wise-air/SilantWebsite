@@ -1,0 +1,168 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+Техническое обслуживание | Силант
+{% endblock %}
+
+{% block content %}
+
+
+<div class="service-page page">
+    {% include 'silant/logged.html' %}
+    {% include 'silant/search.html' %}
+    
+    <h1>Техническое обслуживание</h1>
+
+    <section>
+        <table class="service-list list">
+            <thead class="service-header">
+            <tr>
+                <td class="service-header-tech_type">
+                    <a href="?{% service_replace vehicle__tech_type=1 %}">
+                        Модель техники
+                    </a>
+                    {% if ordering == "vehicle__tech_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-vehicle_number">
+                    <a href="?{% service_replace vehicle__vehicle_number=1 %}">
+                    Зав. № машины
+                    </a>
+                    {% if ordering == "vehicle__vehicle_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-service_type">
+                    <a href="?{% service_replace service_type=1 %}">
+                    Вид ТО
+                    </a>
+                    {% if ordering == "service_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-date">
+                    <a href="?{% service_replace date=1 %}">
+                    Дата проведения ТО
+                    </a>
+                    {% if ordering == "date" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-hours">
+                    <a href="?{% service_replace hours=1 %}">
+                    Наработка, м/час
+                    </a>
+                    {% if ordering == "hours" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-order_number">
+                    <a href="?{% service_replace order_number=1 %}">
+                    № заказа-наряда
+                    </a>
+                    {% if ordering == "order_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-order_date">
+                    <a href="?{% service_replace order_date=1 %}">
+                    Дата заказа-наряда
+                    </a>
+                    {% if ordering == "order_date" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="service-header-service_firm">
+                    <a href="?{% service_replace service_firm=1 %}">
+                    Сервисная компания
+                    </a>
+                    {% if ordering == "service_firm" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                {% if user_role == 'MANAGER' %}
+                <td class="vehicle-header-act">
+                    Действие
+                </td>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody class="service-body">
+            {% for item in items %}
+
+            {% create_link item=item link_type='service' as link %}
+            <tr data-url="{{ link }}">
+                <td class="service-body-tech_type">
+                    {% create_link item=item.vehicle.tech_type link_type='tech_type' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.vehicle.tech_type }}
+                    </a>
+                    {% else %}
+                    {{ item.vehicle.tech_type }}
+                    {% endif %}
+                </td>
+                <td class="service-body-vehicle_number">
+                    {% create_link item=item.vehicle link_type='vehicle' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.vehicle.vehicle_number }}
+                    </a>
+                    {% else %}
+                    {{ item.vehicle.vehicle_number }}
+                    {% endif %}
+                </td>
+                <td class="service-body-service_type">
+                    {% create_link item=item.service_type link_type='service_type' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.service_type }}
+                    </a>
+                    {% else %}
+                    {{ item.service_type }}
+                    {% endif %}
+                </td>
+                <td class="service-body-date">
+                    {{ item.date }}
+                </td>
+                <td class="service-body-hours">
+                    {{ item.hours }}
+                </td>
+                <td class="service-body-order_number">
+                    {{ item.order_number }}
+                </td>
+                <td class="service-body-order_date">
+                    {{ item.order_date }}
+                </td>
+                <td class="service-body-service_firm">
+                    {% if item.service_firm %}
+                    {% create_link item=item.service_firm link_type='service_firm' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.service_firm }}
+                    </a>
+                    {% else %}
+                    {{ item.service_firm }}
+                    {% endif %}
+                    {% else %}
+                    <i>самостоятельно</i>
+                    {% endif%}
+                </td>
+                {% if user_role == 'MANAGER' %}
+                <td class="vehicle-body-act">
+                    {% reverse_url middle=meta.object_name end='delete' as reverse %}
+                    <a href="{% url reverse item.pk %}">
+                        Удалить
+                    </a>
+                </td>
+                {% endif %}
+            </tr>
+
+            {% empty %}
+            <tr>
+                {% if user_role == 'MANAGER' %}
+                <td class="body-empty" colspan="9">
+                    Список ТО пуст
+                </td>
+                {% else %}
+                <td class="body-empty" colspan="8">
+                    Список ТО пуст
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% include 'silant/paginator.html' %}
+</div>
+
+{% endblock %}
+

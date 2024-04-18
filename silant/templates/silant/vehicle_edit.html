@@ -1,0 +1,34 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="vehicle-page page">
+    {% if item %}
+        <h1>{{ meta.verbose_name }}: {{ item.tech_type }} № {{ item.vehicle_number }}</h1>
+    {% else %}
+        <h1>Новая {{ meta.verbose_name|lower }}</h1>
+    {% endif %}
+
+    <div class="vehicle-edit-{{ meta.object_name|camel_to_snake }} vehicle-edit edit">
+        <form action="" method="post">
+            <div class="edit-fields">
+                {% csrf_token %}
+                {{ form.as_div }}
+            </div>
+            <div class="edit-buttons">
+                <button type="submit">Сохранить</button>
+                {% reverse_url middle=meta.object_name end='list' as reverse %}
+                <a class="edit-to-list" href="{% url reverse %}">Отменить</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+

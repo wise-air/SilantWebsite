@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content=""/>
+    <title>
+        {% block title %}
+        Силант
+        {% endblock %}
+    </title>
+    <link rel="icon" type="image/x-icon" href="{% static '/assets/Styles/silantlogoR.svg' %}"/>
+<!--     Core theme CSS (includes Bootstrap)-->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+    <link href="{% static 'fontawesome/css/all.css' %}" rel="stylesheet">
+    <script src="{% static 'js/common.js' %}"></script>
+</head>
+<body>
+<div class="root">
+    <header>
+        <div class="header-row">
+            <div class="logo">
+                <a href="/">
+                    <img src="/static/assets/silantlogoB.svg" alt="Логотип ООО Силант">
+                </a>
+            </div>
+            <div class="header-contact"><a href="tel:+7-8352- 20-12-09">+7 (8352) 20-12-09</a>
+            <div class="logo-contact"><a href="tg://resolve?domain=<USERNAME>">
+                    <img src="/static/assets/telegramB.svg" width="50px" alt="Логотип Телеграм"></a>
+                </div>    
+            </div>
+            <div class="header-auth">
+                {% if user.is_authenticated %}
+                <div class="user-name">
+                    Пользователь: {{ user }}
+                </div>
+                <div class="user-logout">
+                    <a href="/accounts/logout">
+                        Выход
+                    </a>
+                </div>
+                {% else %}
+                <div class="user-logout">
+                    <a href="/accounts/login">
+                        Вход
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="header-text">
+        <h2>Электронная сервисная книжка: </h2>
+        <img src="/static/assets/MySilantB.svg" width="300 px" alt="Мой Силант">
+    </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <div class="footer-contact"><a href="tel:+7-8352-20-12-09">+7 (8352) 20-12-09</a>                
+                        <div class="logo-contact"><a href="tg://resolve?domain=<USERNAME>">
+                                <img src="/static/assets/telegramB.svg" width="50px" alt="Логотип Телеграм"></a>
+                            </div>    
+                        </div>
+        <div class="footer-copyright"><img src="/static/assets/MySilantB.svg" width="200px" alt="Мой Силант"> <h3>2024</h3></div>
+    </footer>
+</div>
+</body>
+</html>

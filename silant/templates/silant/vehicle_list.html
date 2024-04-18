@@ -1,0 +1,210 @@
+{% extends 'default.html' %}
+
+{% block title %}
+{{ meta.verbose_name_plural }} | Силант
+{% endblock %}
+
+{% load silant_filters %}
+
+{% block content %}
+
+
+
+<div class="vehicle-page page">
+
+
+    {% if user_role == "" %}
+    <h2>Проверьте комплектацию и технические характеристики техники Силант</h2>
+    {% else %}
+    {% include 'silant/logged.html' %}
+    {% endif %}
+
+    {% include 'silant/search.html' %}
+
+    <h1>{{ meta.verbose_name_plural }}</h1>
+
+    <section>
+        <div class="scroll">
+
+            <table class="vehicle-list list">
+                <thead class="vehicle-header">
+                <tr>
+                    <td class="vehicle-header-tech_type">
+                        <a href="?{% vehicle_replace tech_type=1 %}">
+                            Модель техники
+                        </a>
+                        {% if ordering == "tech_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-vehicle_number">
+                        <a href="?{% vehicle_replace vehicle_number=1 %}">
+                            Зав. № машины
+                        </a>
+                        {% if ordering == "vehicle_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-engine_type">
+                        <a href="?{% vehicle_replace engine_type=1 %}">
+                            Модель двигателя
+                        </a>
+                        {% if ordering == "engine_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-engine_number">
+                        <a href="?{% vehicle_replace engine_number=1 %}">
+                            Зав. № двигателя
+                        </a>
+                        {% if ordering == "engine_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-gear_type">
+                        <a href="?{% vehicle_replace gear_type=1 %}">
+                            Модель трансмиссии
+                        </a>
+                        {% if ordering == "gear_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-gear_number">
+                        <a href="?{% vehicle_replace gear_number=1 %}">
+                            Зав. № трансмиссии
+                        </a>
+                        {% if ordering == "gear_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-drive_axel_type">
+                        <a href="?{% vehicle_replace drive_axel_type=1 %}">
+                            Модель ведущего моста
+                        </a>
+                        {% if ordering == "drive_axel_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-drive_axel_number">
+                        <a href="?{% vehicle_replace drive_axel_number=1 %}">
+                            Зав. № ведущего моста
+                        </a>
+                        {% if ordering == "drive_axel_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-steer_axel_type">
+                        <a href="?{% vehicle_replace steer_axel_type=1 %}">
+                            Модель управляемого моста
+                        </a>
+                        {% if ordering == "steer_axel_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    <td class="vehicle-header-steer_axel_number">
+                        <a href="?{% vehicle_replace steer_axel_number=1 %}">
+                            Зав. № управляемого моста
+                        </a>
+                        {% if ordering == "steer_axel_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                    </td>
+                    {% if user_role == 'MANAGER' %}
+                    <td class="vehicle-header-act">
+                        Действие
+                    </td>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody class="vehicle-body">
+
+                {% for item in items %}
+
+                {% create_link item=item link_type='vehicle' as link %}
+                <tr data-url="{{ link }}">
+                    <td class="vehicle-body-tech_type">
+                        {% create_link item=item.tech_type link_type='tech_type' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.tech_type }}
+                        </a>
+                        {% else %}
+                        {{ item.tech_type }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-vehicle_number">
+                        {% create_link item=item link_type='vehicle' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.vehicle_number }}
+                        </a>
+                        {% else %}
+                        {{ item.vehicle_number }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-engine_type">
+                        {% create_link item=item.engine_type link_type='engine_type' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.engine_type }}
+                        </a>
+                        {% else %}
+                        {{ item.engine_type }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-engine_number">
+                        {{ item.engine_number }}
+                    </td>
+                    <td class="vehicle-body-gear_type">
+                        {% create_link item=item.gear_type link_type='gear_type' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.gear_type }}
+                        </a>
+                        {% else %}
+                        {{ item.gear_type }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-gear_number">
+                        {{ item.gear_number }}
+                    </td>
+                    <td class="vehicle-body-drive_axel_type">
+                        {% create_link item=item.drive_axel_type link_type='drive_axel_type' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.drive_axel_type }}
+                        </a>
+                        {% else %}
+                        {{ item.drive_axel_type }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-drive_axel_number">
+                        {{ item.drive_axel_number }}
+                    </td>
+                    <td class="vehicle-body-steer_axel_type">
+                        {% create_link item=item.steer_axel_type link_type='steer_axel_type' as link %}
+                        {% if link %}
+                        <a href="{{ link }}">
+                            {{ item.steer_axel_type }}
+                        </a>
+                        {% else %}
+                        {{ item.steer_axel_type }}
+                        {% endif %}
+                    </td>
+                    <td class="vehicle-body-steer_axel_number">
+                        {{ item.steer_axel_number }}
+                    </td>
+                    {% if user_role == 'MANAGER' %}
+                    <td class="vehicle-body-act">
+                        {% reverse_url middle=meta.object_name end='delete' as reverse %}
+                        <a href="{% url reverse item.pk %}">
+                            Удалить
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+
+                {% empty %}
+                <tr>
+                    {% if user_role == 'MANAGER' %}
+                    <td class="body-empty" colspan="11">
+                        Данных о машине с таким заводским номером нет в системе
+                    </td>
+                    {% else %}
+                    <td class="body-empty" colspan="10">
+                        Данных о машине с таким заводским номером нет в системе
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    {% include 'silant/paginator.html' %}
+</div>
+
+
+{% endblock %}
+

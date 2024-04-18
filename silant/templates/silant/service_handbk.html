@@ -1,0 +1,51 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="page">
+
+    <h1>Справочники таблицы "Техническое обслуживание"</h1>
+    <table class="voc-list-engine_type voc-list list">
+        <thead class="vehicle-header">
+            <tr>
+                <td>Наименование справочника</td>
+                <td>Действие</td>
+            </tr>
+        </thead>
+        <tbody class="vehicle-body">
+            <tr>
+                <td>
+                    Справочник "Виды технического обслуживания"
+                </td>
+                <td>
+                    <a href="/service_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Сервисные компании"
+                </td>
+                <td>
+                    <a href="/service_firm">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    
+
+    </table>
+    <div class="back">
+        <a class="edit-to-list" href="/service/">Назад</a>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,83 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+Машина {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }}: {{ item.service_type }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="service-page page">
+    <h2>Машина {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }}: {{ item.service_type }}</h2>
+
+    <div class="service-item item">
+        <div class="service-row">
+            <div class="service-row-name">
+                Модель техники:
+            </div>
+            <div class="service-row-value">
+                {{ item.vehicle.tech_type }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Зав. № машины:
+            </div>
+            <div class="service-row-value">
+                {{ item.vehicle.vehicle_number }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Вид ТО:
+            </div>
+            <div class="service-row-value">
+                {{ item.service_type }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Дата проведения ТО:
+            </div>
+            <div class="service-row-value">
+                {{ item.date }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Наработка, м/час:
+            </div>
+            <div class="service-row-value">
+                {{ item.hours }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                № заказа-наряда:
+            </div>
+            <div class="service-row-value">
+                {{ item.order_number }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Дата заказа-наряда:
+            </div>
+            <div class="service-row-value">
+                {{ item.order_date }}
+            </div>
+        </div>
+        <div class="service-row">
+            <div class="service-row-name">
+                Сервисная компания:
+            </div>
+            <div class="service-row-value">
+                {{ item.service_firm }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

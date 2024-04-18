@@ -1,0 +1,171 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name_plural }} | Силант
+{% endblock %}
+
+{% block content %}
+
+
+<div class="claim-page page">
+    {% include 'silant/logged.html' %}
+    {% include 'silant/search.html' %}
+    
+    <h1>{{ meta.verbose_name_plural }}</h1>
+
+    <section>
+        <table class="claim-list list">
+            <thead class="claim-header">
+            <tr>
+                <td class="claim-header-tech_type">
+                    <a href="?{% claim_replace vehicle__tech_type=1 %}">
+                        Модель техники
+                    </a>
+                    {% if ordering == "vehicle__tech_type" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-vehicle_number">
+                    <a href="?{% claim_replace vehicle__vehicle_number=1 %}">
+                        Зав. № машины
+                    </a>
+                    {% if ordering == "vehicle__vehicle_number" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-failure_date">
+                    <a href="?{% claim_replace failure_date=1 %}">
+                        Дата отказа
+                    </a>
+                    {% if ordering == "failure_date" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-hours">
+                    <a href="?{% claim_replace hours=1 %}">
+                        Наработка, м/час
+                    </a>
+                    {% if ordering == "hours" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-failure_part">
+                    <a href="?{% claim_replace failure_part=1 %}">
+                        Узел отказа
+                    </a>
+                    {% if ordering == "failure_part" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-failure_type">
+                    Описание отказа
+                </td>
+                <td class="claim-header-repair_method">
+                    <a href="?{% claim_replace repair_method=1 %}">
+                        Способ восстановления
+                    </a>
+                    {% if ordering == "repair_method" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-spare">
+                    Использованные запчасти
+                </td>
+                <td class="claim-header-repaired_date">
+                    <a href="?{% claim_replace repaired_date=1 %}">
+                        Дата восстановления
+                    </a>
+                    {% if ordering == "repaired_date" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+                <td class="claim-header-downtime">
+                    Время простоя техники
+                </td>
+                <td class="claim-header-service_firm">
+                    <a href="?{% claim_replace service_firm=1 %}">
+                        Сервисная компания
+                    </a>
+                    {% if ordering == "service_firm" %}<i class="fa-solid fa-caret-down"></i>{% endif %}
+                </td>
+            </tr>
+            </thead>
+            <tbody class="claim-body">
+
+            {% for item in items %}
+
+            {% create_link item=item link_type='claim' as link %}
+            <tr data-url="{{ link }}">
+                <td class="claim-body-tech_type">
+                    {% create_link item=item.vehicle.tech_type link_type='tech_type' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.vehicle.tech_type }}
+                    </a>
+                    {% else %}
+                    {{ item.vehicle.tech_type }}
+                    {% endif %}
+                </td>
+                <td class="claim-body-vehicle_number">
+                    {% create_link item=item.vehicle link_type='vehicle' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.vehicle.vehicle_number }}
+                    </a>
+                    {% else %}
+                    {{ item.vehicle.vehicle_number }}
+                    {% endif %}
+                </td>
+                <td class="claim-body-failure_date">
+                    {{ item.failure_date }}
+                </td>
+                <td class="claim-body-hours">
+                    {{ item.hours }}
+                </td>
+                <td class="claim-body-failure_part">
+                    {% create_link item=item.failure_part link_type='failure_part' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.failure_part }}
+                    </a>
+                    {% else %}
+                    {{ item.failure_part }}
+                    {% endif %}
+                </td>
+                <td class="claim-body-failure_type">
+                    {{ item.failure_type|linebreaksbr }}
+                </td>
+                <td class="claim-body-repair_method">
+                    {% create_link item=item.repair_method link_type='repair_method' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.repair_method }}
+                    </a>
+                    {% else %}
+                    {{ item.repair_method }}
+                    {% endif %}
+                </td>
+                <td class="claim-body-spare">
+                    {{ item.spare|linebreaksbr }}
+                </td>
+                <td class="claim-body-repaired_date">
+                    {{ item.repaired_date }}
+                </td>
+                <td class="claim-body-downtime">
+                    {{ item.downtime.days }} {{ item.downtime.days|days_string }}
+                </td>
+                <td class="claim-body-service_firm">
+                    {% create_link item=item.service_firm link_type='service_firm' as link %}
+                    {% if link %}
+                    <a href="{{ link }}">
+                        {{ item.service_firm }}
+                    </a>
+                    {% else %}
+                    {{ item.service_firm }}
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td class="claim-body-empty" colspan="8">
+                    Список пуст
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    {% include 'silant/paginator.html' %}
+</div>
+
+{% endblock %}
+

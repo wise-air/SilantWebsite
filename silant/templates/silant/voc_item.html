@@ -1,0 +1,23 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="voc-page page">
+
+    <h2>{{ meta.verbose_name }}: {{ item.name }}</h2>
+
+    <div class="voc-item-{{ meta.object_name|lower }} voc-item">
+        <div>
+            {{ item.descr|default:"Описание еще не составлено" }}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

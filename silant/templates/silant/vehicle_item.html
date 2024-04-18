@@ -1,0 +1,155 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="vehicle-page page">
+    <h2>{{ meta.verbose_name }}: {{ item.tech_type }} № {{ item.vehicle_number }}</h2>
+
+    <div class="vehicle-item item">
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Модель техники:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.tech_type }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Зав. № машины:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.vehicle_number }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Модель двигателя:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.engine_type }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Зав. № двигателя:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.engine_number }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Модель трансмиссии:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.gear_type }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Зав. № трансмиссии:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.gear_number }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Модель ведущего моста:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.drive_axel_type }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Зав. № ведущего моста:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.drive_axel_number }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Модель управляемого моста:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.steer_axel_type }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Зав. № управляемого моста:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.steer_axel_number }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Договор поставки, №, дата:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.contract|default:"" }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Дата отгрузки с завода:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.shipping_date|date:"d.m.Y" }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Грузополучатель:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.consumer }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Адрес поставки:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.address }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Комплектация (доп. опции):
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.equipment|linebreaksbr }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Клиент:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.client }}
+            </div>
+        </div>
+        <div class="vehicle-row">
+            <div class="vehicle-row-name">
+                Сервисная компания:
+            </div>
+            <div class="vehicle-row-value">
+                {{ item.service_firm }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="service-page page">
+    {% if item %}
+    <h2>Машина {{ item.vehicle.tech_type }} № {{ item.vehicle.vehicle_number }}: {{ item.service_type }}</h2>
+    {% else %}
+    <h2>Новое {{ meta.verbose_name }}</h2>
+    {% endif %}
+
+
+    <div class="service-edit-{{ meta.object_name|lower }} service-edit edit">
+        <form action="" method="post">
+            <div class="edit-fields">
+                {% csrf_token %}
+                {{ form.as_div }}
+            </div>
+            <div class="edit-buttons">
+                <button type="submit">Сохранить</button>
+                {% reverse_url middle=meta.object_name end='list' as reverse %}
+                <a class="edit-to-list" href="{% url reverse %}">Отменить</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
+

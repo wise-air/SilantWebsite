@@ -1,0 +1,50 @@
+{% load silant_filters %}
+
+<div class="search">
+    <h2>Фильтрация списка</h2><hr>
+    {% if filter_set %}
+    <form action="" method="get">
+        
+        <div class="form">    
+            {{ filter_set.form.as_div }}
+        </div>
+            <div class="search-buttons">
+                <button type="submit">Найти</button>
+
+                {% can_add_vehicle meta.object_name as can %}
+                {% if can %}
+                {% reverse_url middle=meta.object_name end='add' as reverse %}
+                <a href="{% url reverse %}">
+                    Добавить машину
+                </a>
+                <a href="/hand_book_vehicle">
+                    Редактировать справочники
+                </a>
+                {% endif %}
+
+                {% can_add_service meta.object_name as can %}
+                {% if can %}
+                {% reverse_url middle=meta.object_name end='add' as reverse %}
+                <a href="{% url reverse %}">
+                    Добавить TO
+                </a>
+                <a href="/hand_book_service">
+                    Редактировать справочники
+                </a>
+                {% endif %}
+
+                {% can_add_claim meta.object_name as can %}
+                {% if can %}
+                {% reverse_url middle=meta.object_name end='add' as reverse %}
+                <a href="{% url reverse %}">
+                    Добавить рекламацию
+                </a>
+                <a href="/hand_book_claim">
+                    Редактировать справочники
+                </a>
+                {% endif %}
+
+            </div>
+    </form>
+    {% endif %}
+</div>

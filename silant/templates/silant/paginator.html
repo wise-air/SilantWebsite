@@ -1,0 +1,41 @@
+{% load silant_filters %}
+
+{% if page_obj.paginator.num_pages > 1 %}
+<div class="paginator">
+
+    {% if page_obj.has_previous %}
+    <div class="paginator-link">
+        <a href="?{% url_replace page=1 %}">1</a>
+    </div>
+    {% if page_obj.previous_page_number != 1 %}
+    <div class="paginator-ellipsis">
+        ...
+    </div>
+    <div class="paginator-link">
+        <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <div class="paginator-current">
+        <span>
+        {{ page_obj.number }}
+            </span>
+    </div>
+
+    {% if page_obj.has_next %}
+    <div class="paginator-link">
+        <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+    </div>
+    {% if paginator.num_pages != page_obj.next_page_number %}
+    <div class="paginator-ellipsis">
+        ...
+    </div>
+    <div class="paginator-link">
+        <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+    </div>
+    {% endif %}
+    {% endif %}
+
+</div>
+{% endif %}

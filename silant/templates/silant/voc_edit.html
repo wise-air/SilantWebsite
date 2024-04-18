@@ -1,0 +1,30 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="page">
+    <h2>{{ meta.verbose_name }}: {{ item.name|default:"-----" }}</h2>
+
+    <div class="voc-edit-{{ meta.object_name|camel_to_snake }} voc-edit edit">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="edit-fields">
+                {{ form.as_div }}
+            </div>
+            <div class="edit-buttons">
+                <button type="submit">Сохранить</button>
+                {% reverse_url middle=meta.object_name end='list' as reverse %}
+                <a class="edit-to-list" href="{% url reverse %}">Отменить</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+

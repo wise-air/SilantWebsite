@@ -1,0 +1,100 @@
+{% extends 'default.html' %}
+
+{% load silant_filters %}
+
+{% block title %}
+{{ meta.verbose_name }} {{ item.name }} | Силант
+{% endblock %}
+
+{% block content %}
+<div class="page">
+
+    <h1>Справочники таблицы "Машины"</h1>
+    <table class="list">
+        <thead class="vehicle-header">
+            <tr>
+                <td>Наименование справочника</td>
+                <td>Действие</td>
+            </tr>
+        </thead>
+        <tbody class="vehicle-body">
+            <tr>
+                <td>
+                    Справочник "Модели техники"
+                </td>
+                <td>
+                    <a href="/tech_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Модели двигателей"
+                </td>
+                <td>
+                    <a href="/engine_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr><tr>
+                <td>
+                    Справочник "Модели трансмиссий"
+                </td>
+                <td>
+                    <a href="/gear_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Модели ведущих мостов"
+                </td>
+                <td>
+                    <a href="/drive_axel_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Модели управляемых мостов"
+                </td>
+                <td>
+                    <a href="/steer_axel_type">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Клиенты"
+                </td>
+                <td>
+                    <a href="/client">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Справочник "Сервисные компании"
+                </td>
+                <td>
+                    <a href="/service_firm">
+                        Редактировать
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    
+
+    </table>
+    <div class="back">
+        <a class="edit-to-list" href="/">Назад</a>
+    </div>
+</div>
+
+{% endblock %}
+

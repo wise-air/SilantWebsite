@@ -1,0 +1,31 @@
+{% if user_role != "" %}
+<div class="logged">
+    {% if user_role == "MANAGER" %}
+    <div class="logged-manager">
+        Авторизован менеджер: {{ user }}
+    </div>
+    {% elif user_role == "CLIENT" %}
+    <div class="logged-client">
+        Авторизован клиент: {{ user.silantpermissions.client }}
+    </div>
+    {% elif user_role == "SERVICE" %}
+    <div class="logged-service-firm">
+        Авторизована сервисная организация: {{ user.silantpermissions.service_firm }}
+    </div>
+    {% endif %}
+    <h2 class="logged-subhead">
+        Информация о комплектации и технических карактеристиках Вашей техники
+    </h2>
+    <ul class="logged-tabs">
+        <li class="logged-tab-vehicle">
+            <a href="{% url 'silant.vehicle.list' %}">Технические данные</a>
+        </li>
+        <li class="logged-tab-service">
+            <a href="{% url 'silant.service.list' %}">Тех. обслуживание</a>
+        </li>
+        <li class="logged-tab-claim">
+            <a href="{% url 'silant.claim.list' %}">Рекламации</a>
+        </li>
+    </ul>
+</div>
+{% endif %}
